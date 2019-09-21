@@ -54,12 +54,13 @@ const getConfig = () => {
 
 export const makeBuildFlags = (config: Config) => {
   const flags: Array<string | false> = [
-    `--platform ${config.platforms.join(',')}`,
-    config.tag.length !== 0 && `--tag ${config.tag.join(',')}`,
+    '--platform',
+    config.platforms.join(','),
+    ...(config.tag.length !== 0 && `--tag ${config.tag.join(',')}`.split(' ')),
     config.push && '--push',
     config.load && '--load',
-    config.target && `--target ${config.target}`,
-    config.dockerfile && `--file ${config.dockerfile}`,
+    ...(config.target && `--target ${config.target}`.split(' ')),
+    ...(config.dockerfile && `--file ${config.dockerfile}`.split(' ')),
     config.context,
   ];
 
@@ -70,7 +71,7 @@ export const runBuild = async (config: Config) => {
   const flags = makeBuildFlags(config);
 
   await core.group('buildx build', () =>
-    exec.exec(`sudo ${tc.find('buildx', '0.3.0')}/buildx build`, flags)
+    exec.exec(`sudo ${tc.find('buildx', '0.3.0')}/buildx build ${flags.join(' ')}`)
   );
 };
 
