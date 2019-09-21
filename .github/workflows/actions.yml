@@ -1,0 +1,17 @@
+on: [push, pull_request]
+
+name: Test Actions
+
+jobs:
+  setup_protoc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - uses: ./setup-protoc
+        with:
+          version: '3.9.1'
+
+      - name: Check version
+        run: |
+          protoc --version | grep -E 3.9.1
