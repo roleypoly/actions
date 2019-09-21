@@ -1,0 +1,10 @@
+name: 'Setup Protoc environment'
+description: 'Setup a Protoc environment and add it to the PATH'
+author: 'Roleypoly'
+inputs:
+  protoc-version:
+    description: 'The protoc version to download (if necessary) and use. Example: 1.9.3'
+    default: '3.9.1'
+runs:
+  using: 'node12'
+  main: '../lib/setup-protoc/setup-protoc.js'

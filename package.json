@@ -1,0 +1,63 @@
+{
+  "name": "@roleypoly/actions",
+  "version": "1.0.0",
+  "description": "collections of github actions",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "lint": "run-p -c lint:*",
+    "lint:prettier": "prettier -c '**/*.{ts,tsx,css,yml,yaml,md,json,js,jsx}'",
+    "lint:tsc": "tsc --noEmit --isolatedModules",
+    "lint:tslint": "tslint --project .",
+    "build": "rm -rf ./lib && tsc",
+    "prettier": "npm run lint:prettier -- --write"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{json,md,yml}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.{ts,tsx}": [
+      "prettier --write",
+      "tslint --fix",
+      "tsc",
+      "git add"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roleypoly/actions.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/roleypoly/actions/issues"
+  },
+  "homepage": "https://github.com/roleypoly/actions#readme",
+  "devDependencies": {
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.7.5",
+    "husky": "^3.0.5",
+    "jest": "^24.9.0",
+    "jest-circus": "^24.9.0",
+    "lint-staged": "^9.2.5",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.18.2",
+    "ts-jest": "^24.1.0",
+    "tslint": "^5.20.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-config-standard": "^8.0.1",
+    "tslint-plugin-prettier": "^2.0.1",
+    "typescript": "^3.6.3",
+    "typescript-tslint-plugin": "^0.5.4"
+  },
+  "dependencies": {
+    "@actions/core": "^1.1.1",
+    "@actions/tool-cache": "^1.1.1"
+  }
+}

@@ -1,0 +1,16 @@
+import * as core from '@actions/core';
+import * as installer from './installer';
+
+async function run() {
+  try {
+    const version = core.getInput('protoc-version', { required: true });
+
+    if (version) {
+      await installer.getProtoc(version);
+    }
+  } catch (error) {
+    core.setFailed(error.message);
+  }
+}
+
+run().catch();
