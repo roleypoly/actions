@@ -68,11 +68,14 @@ export const makeBuildFlags = (config: Config) => {
 };
 
 export const runBuild = async (config: Config) => {
-  const flags = makeBuildFlags(config);
+  const buildx = `sudo ${tc.find('buildx', '0.3.0')}/buildx`;
 
-  await core.group('buildx build', () =>
-    exec.exec(`sudo ${tc.find('buildx', '0.3.0')}/buildx build ${flags.join(' ')}`)
+  await core.group('buildx create', () =>
+    exec.exec(`${buildx} create --driver docker-container --use`)
   );
+
+  const flags = makeBuildFlags(config);
+  await core.group('buildx build', () => exec.exec(`${buildx} build ${flags.join(' ')}`));
 };
 
 export const run = async () => {
@@ -82,6 +85,7 @@ export const run = async () => {
     await core.group('Fetch QEMU', async () => {
       await exec.exec('sudo apt update');
       await exec.exec('sudo apt install -y qemu-user-static');
+      await exec.exec('sudo update-binfmts --enable');
     });
   }
 
