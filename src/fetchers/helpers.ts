@@ -43,8 +43,7 @@ export const fetchTool = async ({ url, version, tool, mode }: FetchOptions) => {
   }
 
   core.endGroup();
-
   const out = await tc.cacheFile(toolPkg, tool, tool, version);
-  fs.chmodSync(out, 777);
+  fs.chmodSync(`${out}/buildx`, 777);
   return out;
 };
