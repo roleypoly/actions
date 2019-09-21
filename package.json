@@ -10,7 +10,9 @@
     "lint:tsc": "tsc --noEmit --isolatedModules",
     "lint:tslint": "tslint --project .",
     "build": "rm -rf ./lib && tsc",
-    "prettier": "npm run lint:prettier -- --write"
+    "prettier": "npm run lint:prettier -- --write",
+    "mkaction": "hack/mkaction.sh",
+    "format": "npm run lint"
   },
   "husky": {
     "hooks": {
@@ -27,6 +29,9 @@
       "tslint --fix",
       "tsc",
       "git add"
+    ],
+    "*.{sh,bash}": [
+      "shellcheck"
     ]
   },
   "repository": {
