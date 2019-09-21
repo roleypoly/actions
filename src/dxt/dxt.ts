@@ -76,8 +76,8 @@ export const run = async () => {
 
   if (config.qemu) {
     await core.group('Fetch QEMU', async () => {
-      await exec.exec('apt update');
-      await exec.exec('apt install -y qemu-user-static');
+      await exec.exec('sudo apt update');
+      await exec.exec('sudo apt install -y qemu-user-static');
     });
   }
 
