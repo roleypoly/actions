@@ -28,7 +28,7 @@ export type FetchOptions = {
 
 export const fetchTool = async ({ url, version, tool, mode }: FetchOptions) => {
   core.startGroup(`fetching ${tool}@${version}`);
-  core.debug(`fetching ${tool}@${version}: ${url}`);
+  core.info(`fetching ${tool}@${version}: ${url}`);
 
   const toolPkg = await tc.downloadTool(url);
 
@@ -42,8 +42,9 @@ export const fetchTool = async ({ url, version, tool, mode }: FetchOptions) => {
     return toolDir;
   }
 
-  fs.chmodSync(toolPkg, 777);
-
   core.endGroup();
-  return tc.cacheFile(toolPkg, tool, tool, version);
+
+  const out = await tc.cacheFile(toolPkg, tool, tool, version);
+  fs.chmodSync(out, 777);
+  return out;
 };
