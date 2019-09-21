@@ -71,7 +71,9 @@ export const runBuild = async (config: Config) => {
   const buildx = `sudo ${tc.find('buildx', '0.3.0')}/buildx`;
 
   await core.group('buildx create', async () => {
-    await exec.exec(`${buildx} create --driver docker-container --use`);
+    await exec.exec(
+      `${buildx} create --driver docker-container --use --platform ${config.platforms}`
+    );
     await exec.exec(`${buildx} inspect --bootstrap`);
   });
 
@@ -84,8 +86,7 @@ export const run = async () => {
 
   if (config.qemu) {
     await core.group('Fetch QEMU', async () => {
-      await exec.exec('sudo apt update');
-      await exec.exec('sudo apt install -y qemu-user-static');
+      await exec.exec('sudo apt-get install -y qemu binfmt-support qemu-user-static');
       await exec.exec('sudo update-binfmts --enable');
     });
   }
