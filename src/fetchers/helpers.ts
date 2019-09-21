@@ -2,7 +2,8 @@ let tempDirectory = process.env['RUNNER_TEMPDIRECTORY'] || '';
 
 import * as core from '@actions/core';
 import * as tc from '@actions/tool-cache';
-import path from 'path';
+import * as path from 'path';
+import * as fs from 'fs';
 
 if (!tempDirectory) {
   let baseLocation;
@@ -40,6 +41,8 @@ export const fetchTool = async ({ url, version, tool, mode }: FetchOptions) => {
     core.endGroup();
     return toolDir;
   }
+
+  fs.chmodSync(toolPkg, 777);
 
   core.endGroup();
   return tc.cacheFile(toolPkg, tool, tool, version);
