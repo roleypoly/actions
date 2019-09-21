@@ -86,6 +86,7 @@ export const run = async () => {
 
   if (config.qemu) {
     await core.group('Fetch QEMU', async () => {
+      await exec.exec('sudo apt-get update');
       await exec.exec('sudo apt-get install -y qemu binfmt-support qemu-user-static');
       await exec.exec('sudo update-binfmts --enable');
     });
