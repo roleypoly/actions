@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`produces a correct flag set 1`] = `
+Array [
+  "--platform linux/amd64,linux/arm64,linux/arm/v7",
+  "--tag testimage:tag-2,testimage:tag-1",
+  "--push",
+  "--load",
+  "--file ./Dockerfile",
+  ".",
+]
+`;

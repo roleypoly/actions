@@ -1,0 +1,38 @@
+name: Docker Cross-compilation Tools
+inputs:
+  qemu:
+    description: Use QEMU (will download it if not available)
+    default: 'true'
+
+  buildx:
+    description: Use buildx (will download it if not available)
+    default: 'true'
+
+  platforms:
+    description: Platforms to ask buildx to build
+    default: 'linux/amd64'
+
+  target:
+    description: Target Dockerfile stage
+
+  dockerfile:
+    description: Path to Dockerfile
+    default: './Dockerfile'
+
+  tag:
+    description: Tags for this build
+
+  load:
+    description: Load the container into the Docker host
+    default: 'false'
+
+  push:
+    description: Push tags to their respective registries. (Must be logged in.)
+    default: 'false'
+
+  context:
+    description: Build context path
+    default: '.'
+runs:
+  using: 'node12'
+  main: '../lib/dxt/dxt.js'

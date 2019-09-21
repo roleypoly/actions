@@ -15,3 +15,14 @@ jobs:
       - name: Check version
         run: |
           protoc --version | grep -E 3.9.1
+  dxt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - uses: ./dxt
+        with:
+          tag: scratchimage
+          platforms: linux/arm64,linux/amd64,linux/arm/v7
+          context: './hack/fixtures/dxt'
+          dockerfile: './hack/fixtures/dxt/Dockerfile'
