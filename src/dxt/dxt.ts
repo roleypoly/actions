@@ -39,7 +39,7 @@ const getConfig = () => {
     load: configRaw.load === 'true',
     push: configRaw.push === 'true',
     platforms: configRaw.platforms.split(','),
-    tag: configRaw.tag.split(',').filter(x => x === ''),
+    tag: configRaw.tag.split(',').filter(x => x !== ''),
     target: configRaw.target,
     dockerfile: configRaw.dockerfile,
     context: configRaw.context,
@@ -70,9 +70,10 @@ export const makeBuildFlags = (config: Config) => {
 export const runBuild = async (config: Config) => {
   const buildx = `sudo ${tc.find('buildx', '0.3.0')}/buildx`;
 
-  await core.group('buildx create', () =>
-    exec.exec(`${buildx} create --driver docker-container --use`)
-  );
+  await core.group('buildx create', async () => {
+    await exec.exec(`${buildx} create --driver docker-container --use`);
+    await exec.exec(`${buildx} inspect --bootstrap`);
+  });
 
   const flags = makeBuildFlags(config);
   await core.group('buildx build', () => exec.exec(`${buildx} build ${flags.join(' ')}`));
