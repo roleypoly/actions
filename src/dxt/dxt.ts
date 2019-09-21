@@ -2,6 +2,7 @@ import { configTool } from '../utils/config';
 import { getBuildx } from '../fetchers/buildx';
 import * as exec from '@actions/exec';
 import * as core from '@actions/core';
+import * as tc from '@actions/tool-cache';
 
 export type Config = {
   qemu: boolean;
@@ -68,7 +69,9 @@ export const makeBuildFlags = (config: Config) => {
 export const runBuild = async (config: Config) => {
   const flags = makeBuildFlags(config);
 
-  await core.group('buildx build', () => exec.exec('buildx', flags));
+  await core.group('buildx build', () =>
+    exec.exec('sudo', [tc.find('buildx', '0.3.0'), ...flags])
+  );
 };
 
 export const run = async () => {
