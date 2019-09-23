@@ -56,7 +56,7 @@ export const makeBuildFlags = (config: Config) => {
   const flags: Array<string | false> = [
     '--platform',
     config.platforms.join(','),
-    ...(config.tag.length !== 0 && `--tag ${config.tag.join(',')}`.split(' ')),
+    ...config.tag.map(tagName => [`--tag`, `${tagName}`]).flat(),
     config.push && '--push',
     config.load && '--load',
     ...(config.target && `--target ${config.target}`.split(' ')),
