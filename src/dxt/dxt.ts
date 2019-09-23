@@ -49,6 +49,8 @@ const getConfig = () => {
     throw new Error('with: tag **must** be set to push.');
   }
 
+  core.info(`tags: ${JSON.stringify(config.tag)}`);
+
   return config;
 };
 

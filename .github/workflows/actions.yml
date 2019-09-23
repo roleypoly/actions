@@ -22,7 +22,7 @@ jobs:
 
       - uses: ./dxt
         with:
-          tag: scratchimage
+          tag: scratchimage,scratchimage2
           platforms: linux/arm64,linux/amd64,linux/arm/v7
           context: './hack/fixtures/dxt'
           dockerfile: './hack/fixtures/dxt/Dockerfile'
