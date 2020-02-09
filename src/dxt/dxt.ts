@@ -14,6 +14,7 @@ export type Config = {
   load: boolean;
   push: boolean;
   context: string;
+  defaultBuildArgs: string;
 };
 
 type ConfigRaw = {
@@ -31,6 +32,7 @@ const getConfig = () => {
     load: 'false',
     push: 'false',
     context: '.',
+    defaultBuildArgs: '',
   });
 
   const config: Config = {
@@ -43,6 +45,7 @@ const getConfig = () => {
     target: configRaw.target,
     dockerfile: configRaw.dockerfile,
     context: configRaw.context,
+    defaultBuildArgs: '',
   };
 
   if (config.tag.length === 0 && config.push) {
@@ -52,8 +55,17 @@ const getConfig = () => {
   return config;
 };
 
+const defaultBuildArgs = async (): Promise<string> => {
+  const gitCommit = await exec.exec('git rev-parse HEAD');
+  const gitBranch = await exec.exec('git rev-parse --abbrev-ref HEAD');
+  const buildTime = new Date().toISOString();
+
+  return `--build-arg GIT_COMMIT="${gitCommit}" --build-arg GIT_BRANCH="${gitBranch}" --build-arg "${buildTime}"`;
+};
+
 export const makeBuildFlags = (config: Config) => {
   const flags: Array<string | false> = [
+    config.defaultBuildArgs,
     '--platform',
     config.platforms.join(','),
     ...(config.tag.length !== 0 && `--tag ${config.tag.join(',')}`.split(' ')),
@@ -95,6 +107,8 @@ export const run = async () => {
   if (config.buildx) {
     await core.group('Fetch Buildx', () => getBuildx());
   }
+
+  config.defaultBuildArgs = await defaultBuildArgs();
 
   await runBuild(config);
 };
