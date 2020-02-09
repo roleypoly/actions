@@ -56,8 +56,10 @@ const getConfig = () => {
 };
 
 const defaultBuildArgs = async (): Promise<string> => {
-  const gitCommit = await exec.exec('git rev-parse HEAD');
-  const gitBranch = await exec.exec('git rev-parse --abbrev-ref HEAD');
+  const gitCommit = process.env.GITHUB_SHA || (await exec.exec('git rev-parse HEAD'));
+  const gitBranch =
+    (process.env.GITHUB_REF && process.env.GITHUB_REF.replace('refs/heads/', '')) ||
+    (await exec.exec('git rev-parse --abbrev-ref HEAD'));
   const buildTime = new Date().toISOString();
 
   return `--build-arg GIT_COMMIT="${gitCommit}" --build-arg GIT_BRANCH="${gitBranch}" --build-arg "${buildTime}"`;

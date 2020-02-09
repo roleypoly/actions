@@ -10,6 +10,7 @@ const testConfig: dxt.Config = {
   push: true,
   dockerfile: './Dockerfile',
   context: '.',
+  defaultBuildArgs: '',
 };
 
 it('produces a correct flag set', () => {
