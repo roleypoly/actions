@@ -60,9 +60,9 @@ const defaultBuildArgs = async (): Promise<string> => {
   const gitBranch =
     (process.env.GITHUB_REF && process.env.GITHUB_REF.replace('refs/heads/', '')) ||
     (await exec.exec('git rev-parse --abbrev-ref HEAD'));
-  const buildTime = new Date().toISOString();
+  const buildDate = new Date().toISOString();
 
-  return `--build-arg GIT_COMMIT="${gitCommit}" --build-arg GIT_BRANCH="${gitBranch}" --build-arg "${buildTime}"`;
+  return `--build-arg GIT_COMMIT="${gitCommit}" --build-arg GIT_BRANCH="${gitBranch}" --build-arg BUILD_DATE="${buildDate}"`;
 };
 
 export const makeBuildFlags = (config: Config) => {
