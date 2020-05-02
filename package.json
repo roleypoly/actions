@@ -9,14 +9,17 @@
     "lint:prettier": "prettier -c '**/*.{ts,tsx,css,yml,yaml,md,json,js,jsx}'",
     "lint:tsc": "tsc --noEmit --isolatedModules",
     "lint:tslint": "tslint --project .",
-    "build": "rm -rf ./lib && tsc",
+    "build": "rimraf ./lib && tsc",
     "prettier": "npm run lint:prettier -- --write",
     "mkaction": "hack/mkaction.sh",
-    "format": "npm run lint"
+    "format": "npm run lint",
+    "commit-after-build": "git add .",
+    "lint-staged": "lint-staged",
+    "pre-commit": "run-s lint-staged build commit-after-build"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "pre-commit"
     }
   },
   "lint-staged": {
@@ -58,11 +61,13 @@
     "tslint-config-standard": "^9.0.0",
     "tslint-plugin-prettier": "^2.3.0",
     "typescript": "^3.8.3",
+    "rimraf": "^3.0.2",
     "typescript-tslint-plugin": "^0.5.5"
   },
   "dependencies": {
     "@actions/core": "^1.2.4",
     "@actions/exec": "^1.0.4",
-    "@actions/tool-cache": "^1.3.4"
+    "@actions/tool-cache": "^1.3.4",
+    "@octokit/request": "^5.4.2"
   }
 }
