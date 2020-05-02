@@ -45,6 +45,7 @@ node_modules/*
 !node_modules/os-name
 !node_modules/macos-release
 !node_modules/windows-release
+!node_modules/execa
 
 # TypeScript v1 declaration files
 typings/
