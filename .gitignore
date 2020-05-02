@@ -46,6 +46,7 @@ node_modules/*
 !node_modules/macos-release
 !node_modules/windows-release
 !node_modules/execa
+!node_modules/cross-spawn
 
 # TypeScript v1 declaration files
 typings/
