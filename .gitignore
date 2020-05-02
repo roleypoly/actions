@@ -39,6 +39,7 @@ jspm_packages/
 node_modules/*
 !node_modules/@actions
 !node_modules/uuid
+!node_modules/@octokit
 
 # TypeScript v1 declaration files
 typings/
