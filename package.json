@@ -23,16 +23,16 @@
     }
   },
   "lint-staged": {
-    "*.{json,md,yml}": [
+    "!(node_modules)/**/*.{json,md,yml}": [
       "prettier --write",
       "git add"
     ],
-    "src/**/*.{ts,tsx}": [
+    "!(node_modules)/**/*.{ts,tsx}": [
       "prettier --write",
       "tslint --fix",
       "git add"
     ],
-    "*.{sh,bash}": [
+    "!(node_modules)/**/*.{sh,bash}": [
       "shellcheck"
     ]
   },
