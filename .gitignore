@@ -37,6 +37,7 @@ jspm_packages/
 
 # node modules is more complicated
 node_modules/*
+
 !node_modules/@actions
 !node_modules/uuid
 
@@ -52,6 +53,7 @@ node_modules/*
 !node_modules/semver
 !node_modules/shebang-command
 !node_modules/which
+!node_modules/isexe
 
 # TypeScript v1 declaration files
 typings/
