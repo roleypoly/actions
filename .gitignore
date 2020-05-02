@@ -43,6 +43,8 @@ node_modules/*
 !node_modules/@octokit
 !node_modules/universal-user-agent
 !node_modules/os-name
+!node_modules/macos-release
+!node_modules/windows-release
 
 # TypeScript v1 declaration files
 typings/
