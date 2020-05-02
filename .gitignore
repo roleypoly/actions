@@ -38,9 +38,6 @@ jspm_packages/
 # node modules is more complicated
 node_modules/*
 !node_modules/@actions
-!node_modules/tunnel
-!node_modules/typed-rest-client
-!node_modules/underscore
 !node_modules/uuid
 
 # TypeScript v1 declaration files
