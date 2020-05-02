@@ -1,0 +1,15 @@
+name: Deploy via GitOps
+
+inputs:
+  environment:
+    description: One of production, staging, test
+
+  new-tag:
+    description: Tag name to deploy
+
+  app:
+    description: Name of app to deploy in the GitOps directory
+
+runs:
+  using: 'node12'
+  main: '../lib/deploy/deploy.js'
