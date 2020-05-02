@@ -47,6 +47,11 @@ node_modules/*
 !node_modules/windows-release
 !node_modules/execa
 !node_modules/cross-spawn
+!node_modules/nice-try
+!node_modules/path-key
+!node_modules/semver
+!node_modules/shebang-command
+!node_modules/which
 
 # TypeScript v1 declaration files
 typings/
