@@ -26,3 +26,15 @@ jobs:
           platforms: linux/arm64,linux/amd64,linux/arm/v7
           context: './hack/fixtures/dxt'
           dockerfile: './hack/fixtures/dxt/Dockerfile'
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - uses: ./deploy
+        with:
+          new_tag: latest
+          environment: test
+          github_auth_token: ${{ secrets.GITHUB_TOKEN }}
+          app: ui
