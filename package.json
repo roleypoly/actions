@@ -12,6 +12,7 @@
     "build": "rimraf ./lib && tsc",
     "prettier": "npm run lint:prettier -- --write",
     "mkaction": "hack/mkaction.sh",
+    "mkgitignore": "hack/mkgitignore.sh",
     "format": "npm run lint",
     "commit-after-build": "git add ./lib",
     "lint-staged": "lint-staged",
