@@ -13,13 +13,13 @@
     "prettier": "npm run lint:prettier -- --write",
     "mkaction": "hack/mkaction.sh",
     "format": "npm run lint",
-    "commit-after-build": "git add .",
+    "commit-after-build": "git add ./lib",
     "lint-staged": "lint-staged",
     "pre-commit": "run-s lint-staged build commit-after-build"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pre-commit"
+      "pre-commit": "npm run pre-commit"
     }
   },
   "lint-staged": {
