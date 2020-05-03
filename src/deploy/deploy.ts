@@ -50,9 +50,10 @@ export const run = async () => {
     },
   });
 
-  request('POST /repos/:owner/:repo/dispatches', {
+  await request('POST /repos/:owner/:repo/dispatches', {
     owner: 'roleypoly',
     repo: 'devops',
+    event_type: 'deploy',
     client_payload: {
       ...config,
       description: `${commitSourceInfo}\n\n---\n\n${config.description}`,
