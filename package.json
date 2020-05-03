@@ -9,9 +9,10 @@
     "lint:prettier": "prettier -c '**/*.{ts,tsx,css,yml,yaml,md,json,js,jsx}'",
     "lint:tsc": "tsc --noEmit --isolatedModules",
     "lint:tslint": "tslint --project .",
-    "build": "rimraf ./lib && tsc",
+    "build": "tsc",
     "prettier": "npm run lint:prettier -- --write",
     "mkaction": "hack/mkaction.sh",
+    "mkgitignore": "hack/mkgitignore.sh",
     "format": "npm run lint",
     "commit-after-build": "git add ./lib",
     "lint-staged": "lint-staged",
@@ -23,16 +24,16 @@
     }
   },
   "lint-staged": {
-    "(!node_modules)*.{json,md,yml}": [
+    "!(node_modules)/**/*.{json,md,yml}": [
       "prettier --write",
       "git add"
     ],
-    "(!node_modules)*.{ts,tsx}": [
+    "!(node_modules)/**/*.{ts,tsx}": [
       "prettier --write",
       "tslint --fix",
       "git add"
     ],
-    "(!node_modules)*.{sh,bash}": [
+    "!(node_modules)/**/*.{sh,bash}": [
       "shellcheck"
     ]
   },
