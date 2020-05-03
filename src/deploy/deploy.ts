@@ -44,13 +44,13 @@ export const run = async () => {
 
   const commitSourceInfo = `Initiated by Github Actions ran from ${repo}:${branch} commit: ${commit} at ${new Date()} by ${actor}`;
 
-  request.defaults({
+  console.log({ commitSourceInfo });
+  console.log({ config });
+
+  await request('POST /repos/:owner/:repo/dispatches', {
     headers: {
       authorization: `token ${ghAuthToken}`,
     },
-  });
-
-  await request('POST /repos/:owner/:repo/dispatches', {
     owner: 'roleypoly',
     repo: 'devops',
     event_type: 'deploy',
@@ -63,6 +63,7 @@ export const run = async () => {
 
 if (!module.parent) {
   run().catch((e) => {
+    console.error(e);
     core.error(e);
   });
 }

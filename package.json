@@ -9,7 +9,7 @@
     "lint:prettier": "prettier -c '**/*.{ts,tsx,css,yml,yaml,md,json,js,jsx}'",
     "lint:tsc": "tsc --noEmit --isolatedModules",
     "lint:tslint": "tslint --project .",
-    "build": "rimraf ./lib && tsc",
+    "build": "tsc",
     "prettier": "npm run lint:prettier -- --write",
     "mkaction": "hack/mkaction.sh",
     "mkgitignore": "hack/mkgitignore.sh",
