@@ -1,11 +1,12 @@
 import * as core from '@actions/core';
-import { getBuildx } from '../fetchers/buildx';
 import { exec } from '@actions/exec';
+import * as tc from '@actions/tool-cache';
 import { readFileSync } from 'fs';
+import { getBuildx } from '../fetchers/buildx';
 
 type Config = {
   src: string;
-  dest: string | null;
+  dest: string;
 };
 
 type RetagConfig = {
@@ -33,9 +34,16 @@ const getDestFromRetagJson = (): null | string => {
 };
 
 const getConfig = (): Config => {
+  const src = core.getInput('src');
+  let dest = core.getInput('dest');
+
+  if (!dest) {
+    dest = `${src.split(':')[0]}:${getDestFromRetagJson()}`;
+  }
+
   return {
-    src: core.getInput('src'),
-    dest: core.getInput('dest') || getDestFromRetagJson(),
+    src,
+    dest,
   };
 };
 
@@ -44,6 +52,8 @@ export const run = async () => {
     return getBuildx();
   });
 
+  const buildx = `sudo ${tc.find('buildx', '0.4.1')}/buildx`;
+
   const config = getConfig();
 
   if (config.dest == null) {
@@ -51,7 +61,7 @@ export const run = async () => {
   }
 
   await core.group('Retag', () =>
-    exec('buildx', ['imagetools', 'create', config.src, '-t', config.dest as string])
+    exec(`${buildx} imagetools create ${config.src} -t ${config.dest}`)
   );
 };
 

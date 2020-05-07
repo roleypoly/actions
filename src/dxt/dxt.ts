@@ -1,8 +1,8 @@
-import { configTool } from '../utils/config';
-import { getBuildx } from '../fetchers/buildx';
-import * as exec from '@actions/exec';
 import * as core from '@actions/core';
+import * as exec from '@actions/exec';
 import * as tc from '@actions/tool-cache';
+import { getBuildx } from '../fetchers/buildx';
+import { configTool } from '../utils/config';
 
 export type Config = {
   qemu: boolean;
