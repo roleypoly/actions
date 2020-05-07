@@ -23,6 +23,7 @@ const getDestFromRetagJson = (): null | string => {
     for (let match of Object.keys(config.branches)) {
       const regex = new RegExp(match);
       if (regex.test(process.env.GITHUB_REF || '')) {
+        core.info(`Matched branch ${match} to ${process.env.GITHUB_REF || ''}`);
         return config.branches[match];
       }
     }
@@ -56,6 +57,10 @@ export const run = async () => {
 
   const config = getConfig();
 
+  core.info(
+    `Retagging a build from branch '${process.env.GITHUB_REF}':\n  src > ${config.src} \n dest > ${config.dest}`
+  );
+
   if (config.dest == null) {
     throw new Error('destination unknown. make a .retag.json or set dest on the action.');
   }
@@ -67,6 +72,7 @@ export const run = async () => {
 
 if (!module.parent) {
   run().catch(e => {
+    console.error(e);
     core.setFailed(e);
   });
 }
