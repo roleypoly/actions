@@ -19,11 +19,7 @@ it('fetches buildx', async () => {
 
 it('runs imagetools', async () => {
   await run();
-  expect(exec).toBeCalledWith('buildx', [
-    'imagetools',
-    'create',
-    'test-image:tag-1',
-    '-t',
-    'test-image:tag-2',
-  ]);
+  expect(exec).toBeCalledWith(
+    'sudo /buildx imagetools create test-image:tag-1 -t test-image:tag-2'
+  );
 });
