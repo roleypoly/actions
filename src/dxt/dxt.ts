@@ -82,7 +82,7 @@ export const makeBuildFlags = (config: Config) => {
 };
 
 export const runBuild = async (config: Config) => {
-  const buildx = `sudo ${tc.find('buildx', '0.3.0')}/buildx`;
+  const buildx = `sudo ${tc.find('buildx', '0.4.1')}/buildx`;
 
   await core.group('buildx create', async () => {
     await exec.exec(
