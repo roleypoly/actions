@@ -4,7 +4,7 @@ import * as os from 'os';
 import * as path from 'path';
 import { fetchTool } from './helpers';
 
-export const getBuildx = async (version: string = '0.3.0') => {
+export const getBuildx = async (version: string = '0.4.1') => {
   const tool = 'buildx';
   let toolPath = tc.find(tool, version);
 

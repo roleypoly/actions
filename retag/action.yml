@@ -4,8 +4,7 @@ inputs:
     description: Source image name
     required: true
   dest:
-    description: Destination image name
-    required: true
+    description: Destination image name override ir not set in .retag.json
 runs:
   using: 'node12'
   main: '../lib/retag/retag.js'
