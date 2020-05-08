@@ -15,7 +15,7 @@ type RetagConfig = {
   };
 };
 
-const getDestFromRetagJson = (): null | string => {
+const getDestFromRetagJson = (): string => {
   try {
     const configRaw = readFileSync('.retag.json', { encoding: 'utf-8' });
     const config: RetagConfig = JSON.parse(configRaw);
@@ -30,7 +30,7 @@ const getDestFromRetagJson = (): null | string => {
 
     return '';
   } catch (e) {
-    return null;
+    return '';
   }
 };
 
@@ -39,7 +39,14 @@ const getConfig = (): Config => {
   let dest = core.getInput('dest');
 
   if (!dest) {
-    dest = `${src.split(':')[0]}:${getDestFromRetagJson()}`;
+    const configuredRetag = getDestFromRetagJson();
+
+    if (configuredRetag === '') {
+      core.info('No tagging operation to do, exiting.');
+      process.exit();
+    }
+
+    dest = `${src.split(':')[0]}:${configuredRetag}`;
   }
 
   return {
